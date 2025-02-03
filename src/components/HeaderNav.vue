@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="flex justify-between p-4 text-2xl">
-      <span class="font-bold">E-SHOP</span>
+      <span class="font-bold text-purple-500">E-SHOP</span>
       <nav>
         <RouterLink
           to="/store"
