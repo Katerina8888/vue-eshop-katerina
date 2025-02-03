@@ -3,3 +3,7 @@
 body {
   @apply bg-black text-white;
 }
+
+button {
+  @apply bg-white  hover:bg-purple-600 hover:text-white transition-all duration-500 cursor-pointer rounded-xl text-black font-bold uppercase;
+}
