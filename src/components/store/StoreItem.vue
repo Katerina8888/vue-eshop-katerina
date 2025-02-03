@@ -7,11 +7,13 @@
       >
         <h3 class="mb-9 md:text-xl font-bold">Product Name</h3>
       </div>
-      <ButtonText></ButtonText>
+      <!-- <ButtonText></ButtonText> -->
+      <ButtonIntegerWrapper></ButtonIntegerWrapper>
     </div>
   </li>
 </template>
 
 <script setup lang="ts">
-import ButtonText from '../ButtonText.vue'
+// import ButtonText from '../ButtonText.vue'
+import ButtonIntegerWrapper from './ButtonIntegerWrapper.vue'
 </script>
