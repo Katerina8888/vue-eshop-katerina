@@ -1,12 +1,25 @@
 <template>
-  <li class="list-none py-3 grid grid-cols-4 gap-1">
+  <li v-if="quantity !== 0" class="list-none py-3 grid grid-cols-4 gap-1 text-black">
     <ButtonSymbolsValue>x</ButtonSymbolsValue>
-    <div>Produkt</div>
-    <div>2x</div>
-    <div>100 €</div>
+    <div>{{ product.name }}</div>
+    <div>{{ quantity }}</div>
+    <div>{{ price }}</div>
   </li>
 </template>
 
 <script setup lang="ts">
+import { defineProps, computed } from 'vue'
+import { useCartStore } from '@/stores/cart'
 import ButtonSymbolsValue from '../store/ButtonSymbolsValue.vue'
+import type { Product } from '@/types'
+
+// TODO ZAPAMATOVAT SI, KDY MÁ BÝT CONST PROPS A KDY NE
+const props = defineProps<{
+  product: Product
+}>()
+
+const cartStore = useCartStore()
+
+const quantity = computed(() => cartStore.getQuantity(props.product.id))
+const price = computed(() => props.product.price * quantity.value)
 </script>

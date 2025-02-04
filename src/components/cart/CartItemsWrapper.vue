@@ -1,13 +1,18 @@
 <template>
-  <ul class="w-2/3">
-    <CartItem></CartItem>
-    <CartItem></CartItem>
-    <CartItem></CartItem>
-    <CartItem></CartItem>
-    <CartItem></CartItem>
-  </ul>
+  <div>
+    <ul v-if="products.length" class="w-2/3">
+      <CartItem v-for="(product, index) in products" :key="index" :product="product"></CartItem>
+    </ul>
+    <p v-else>No items in the cart.</p>
+  </div>
 </template>
 
 <script setup lang="ts">
+import { defineProps } from 'vue'
 import CartItem from './CartItem.vue'
+import type { Product } from '@/types'
+
+defineProps<{
+  products: Product[]
+}>()
 </script>
