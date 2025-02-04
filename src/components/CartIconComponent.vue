@@ -4,12 +4,26 @@
       to="/cart"
       class="bg-purple-500 p-2 rounded-full fixed hover:rotate-12 right-4 bottom-4"
     >
-      <img :src="shoppingCart" alt=""
-    /></RouterLink>
+      <div class="relative">
+        <img :src="shoppingCart" alt="" />
+        <span
+          v-if="totalQuantity !== 0"
+          class="absolute -top-1 font-bold text-center just right-3 text-md text-purple-500 bg-white rounded-full w-6 h-6"
+        >
+          {{ totalQuantity }}
+        </span>
+      </div>
+    </RouterLink>
   </div>
 </template>
 
 <script setup lang="ts">
 import shoppingCart from '@/assets/shopping-cart.svg'
+import { useCartStore } from '@/stores/cart'
+import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
+
+const cartStore = useCartStore()
+
+const totalQuantity = computed(() => cartStore.totalQuantity)
 </script>

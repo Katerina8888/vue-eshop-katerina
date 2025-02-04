@@ -9,23 +9,24 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps } from 'vue'
+import { useCartStore } from '@/stores/cart'
 import StoreInteger from './StoreInteger.vue'
 import ButtonPlus from './ButtonPlus.vue'
 import ButtonMinus from './ButtonMinus.vue'
-import { defineEmits } from 'vue'
 import type { Product } from '@/types'
 
 const props = defineProps<{
   product: Product
 }>()
 
-const emit = defineEmits(['update:quantity'])
+const cartStore = useCartStore()
 
 const increaseQuantity = () => {
-  emit('update:quantity', props.product)
+  cartStore.increaseQuantity(props.product.id)
 }
 
 const decreaseQuantity = () => {
-  emit('update:quantity', props.product)
+  cartStore.decreaseQuantity(props.product.id)
 }
 </script>
