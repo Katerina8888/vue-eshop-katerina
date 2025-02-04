@@ -1,7 +1,9 @@
 <template>
-  <ul class="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-3 mx-auto">
-    <StoreItem v-for="(product, index) in products" :key="index" :product="product"></StoreItem>
-  </ul>
+  <div class="max-w-5/6 mx-auto">
+    <ul class="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-3 mx-auto">
+      <StoreItem v-for="(product, index) in products" :key="index" :product="product"></StoreItem>
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
