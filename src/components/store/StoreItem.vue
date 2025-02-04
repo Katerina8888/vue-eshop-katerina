@@ -1,5 +1,4 @@
 <template>
-  <!-- <li v-for="(product, index) in products" :key="index" :task="product"> -->
   <li class="p-4 grid place-items-center">
     <div class="relative">
       <img class="rounded-tr-3xl max-w-full h-auto" :src="product.picture" alt="" />
@@ -8,26 +7,32 @@
       >
         <h3 class="mb-9 md:text-xl font-bold">{{ product.name }}</h3>
       </div>
-      <!-- <ButtonText></ButtonText> -->
-      <ButtonIntegerWrapper :product="product"></ButtonIntegerWrapper>
+      <ButtonText v-if="!isVisible(product.id)" @click="toggleVisibility(product.id)"
+        >buy</ButtonText
+      >
+      <ButtonIntegerWrapper v-if="isVisible(product.id)" :product="product"></ButtonIntegerWrapper>
     </div>
   </li>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import ButtonIntegerWrapper from './ButtonIntegerWrapper.vue'
 import type { Product } from '@/types'
+import ButtonText from '../ButtonText.vue'
+import { useVisibilityStore } from '@/stores/visibility'
 
 defineProps<{
   product: Product
 }>()
-// const emit = defineEmits(['increaseItem', 'decreaseItem'])
 
-// const handleIncreaseItem = () => {
-//   emit('increaseItem')
-// }
+const visibilityStore = useVisibilityStore()
 
-// const handleDecreaseItem = () => {
-//   emit('decreaseItem')
-// }
+const toggleVisibility = (productId: number) => {
+  visibilityStore.toggleVisibility(productId)
+}
+
+const isVisible = (productId: number) => {
+  return visibilityStore.isVisible(productId)
+}
 </script>
