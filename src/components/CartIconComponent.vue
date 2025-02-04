@@ -1,14 +1,14 @@
 <template>
   <div>
     <RouterLink
-      to="/cart"
+      :to="linkIfIsNotEmpty"
       class="bg-purple-500 p-2 rounded-full fixed hover:rotate-12 right-4 bottom-4"
     >
       <div class="relative">
-        <img :src="shoppingCart" alt="" />
+        <img :src="shoppingCart" alt="Shopping Cart" />
         <span
           v-if="totalQuantity !== 0"
-          class="absolute -top-1 font-bold text-center just right-3 text-md text-purple-500 bg-white rounded-full w-6 h-6"
+          class="absolute -top-1 font-bold text-center right-3 text-md text-purple-500 bg-white rounded-full w-6 h-6"
         >
           {{ totalQuantity }}
         </span>
@@ -26,4 +26,8 @@ import { RouterLink } from 'vue-router'
 const cartStore = useCartStore()
 
 const totalQuantity = computed(() => cartStore.totalQuantity)
+
+const linkIfIsNotEmpty = computed(() => {
+  return totalQuantity.value !== 0 ? '/cart' : ''
+})
 </script>

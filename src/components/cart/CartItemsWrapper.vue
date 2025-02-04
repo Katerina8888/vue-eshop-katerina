@@ -1,10 +1,7 @@
 <template>
-  <div>
-    <ul v-if="products.length" class="w-2/3">
-      <CartItem v-for="(product, index) in products" :key="index" :product="product"></CartItem>
-    </ul>
-    <p v-else>No items in the cart.</p>
-  </div>
+  <ul class="w-2/3">
+    <CartItem v-for="(product, index) in products" :key="index" :product="product"></CartItem>
+  </ul>
 </template>
 
 <script setup lang="ts">
