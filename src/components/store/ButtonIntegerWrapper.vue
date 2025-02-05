@@ -4,12 +4,17 @@
   >
     <ButtonPlus @click="increaseQuantity">+</ButtonPlus>
     <StoreInteger :product="product"></StoreInteger>
-    <ButtonMinus @click="decreaseQuantity">-</ButtonMinus>
+    <ButtonMinus
+      @click="decreaseQuantity"
+      :disabled="isDisabled"
+      :class="{ '!bg-gray-400 !hover:bg-gray-400': isDisabled }"
+      >-</ButtonMinus
+    >
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, computed } from 'vue'
 import { useCartStore } from '@/stores/cart'
 import StoreInteger from './StoreInteger.vue'
 import ButtonPlus from './ButtonPlus.vue'
@@ -21,6 +26,10 @@ const props = defineProps<{
 }>()
 
 const cartStore = useCartStore()
+
+const quantity = computed(() => cartStore.getQuantity(props.product.id))
+
+const isDisabled = computed(() => quantity.value === 0)
 
 const increaseQuantity = () => {
   cartStore.increaseQuantity(props.product.id)
