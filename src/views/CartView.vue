@@ -1,5 +1,5 @@
 <template>
-  <main class="flex">
+  <main class="md:flex">
     <CartItemsWrapper :products="products"></CartItemsWrapper>
     <TotalPrice></TotalPrice>
   </main>

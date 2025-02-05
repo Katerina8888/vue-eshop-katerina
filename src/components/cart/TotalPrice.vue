@@ -1,6 +1,14 @@
 <template>
-  <div class="flex flex-col text-center border p-8 m-auto">
+  <div v-if="totalPrice !== 0" class="flex flex-col text-center border p-8 m-auto text-black">
     <div>Total</div>
-    <div>400 €</div>
+    <div>{{ totalPrice }} €</div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useCartStore } from '@/stores/cart'
+
+const cartStore = useCartStore()
+
+const totalPrice = cartStore.totalPrice
+</script>

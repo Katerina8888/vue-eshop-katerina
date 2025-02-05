@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { ref, computed } from 'vue'
 import type { Product } from '@/types'
 
 export const useCartStore = defineStore('cart', () => {
@@ -12,6 +12,13 @@ export const useCartStore = defineStore('cart', () => {
 
   const totalQuantity = computed(() => {
     return Object.values(quantities.value).reduce((total, quantity) => total + quantity, 0)
+  })
+
+  const totalPrice = computed(() => {
+    return products.value.reduce((total, product) => {
+      const quantity = getQuantity(product.id)
+      return total + product.price * quantity
+    }, 0)
   })
 
   const setQuantity = (productId: number, quantity: number) => {
@@ -35,6 +42,11 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  const removeProduct = (productId: number) => {
+    delete quantities.value[productId]
+    products.value = products.value.filter((product) => product.id !== productId)
+  }
+
   const fetchProducts = async () => {
     try {
       const response = await fetch('/products.json')
@@ -49,9 +61,11 @@ export const useCartStore = defineStore('cart', () => {
     quantities,
     getQuantity,
     totalQuantity,
+    totalPrice,
     setQuantity,
     increaseQuantity,
     decreaseQuantity,
+    removeProduct,
     fetchProducts,
   }
 })

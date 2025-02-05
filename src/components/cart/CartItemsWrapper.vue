@@ -1,5 +1,5 @@
 <template>
-  <ul class="w-2/3">
+  <ul class="md:w-2/3">
     <CartItem v-for="(product, index) in products" :key="index" :product="product"></CartItem>
   </ul>
 </template>
