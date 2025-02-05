@@ -6,9 +6,10 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useCartStore } from '@/stores/cart'
 
 const cartStore = useCartStore()
 
-const totalPrice = cartStore.totalPrice
+const totalPrice = computed(() => cartStore.totalPrice)
 </script>
