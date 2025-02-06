@@ -5,6 +5,7 @@ import type { Product } from '@/types'
 export const useCartStore = defineStore('cart', () => {
   const products = ref<Product[]>([])
   const quantities = ref<Record<number, number>>({})
+  const visibilityMap = ref<Record<number, boolean>>({})
 
   const getQuantity = (productId: number) => {
     return quantities.value[productId] || 0
@@ -56,6 +57,14 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  const toggleVisibility = (productId: number) => {
+    visibilityMap.value[productId] = !visibilityMap.value[productId]
+  }
+
+  const isVisible = (productId: number) => {
+    return visibilityMap.value[productId] || false
+  }
+
   return {
     products,
     quantities,
@@ -67,5 +76,8 @@ export const useCartStore = defineStore('cart', () => {
     decreaseQuantity,
     removeProduct,
     fetchProducts,
+    visibilityMap,
+    toggleVisibility,
+    isVisible,
   }
 })
