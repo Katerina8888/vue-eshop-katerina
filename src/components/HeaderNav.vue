@@ -17,6 +17,7 @@
       >
         Cart
       </RouterLink>
+      <RouterLink to="/orders" class="px-2 md:px-4 py-2">Orders</RouterLink>
     </nav>
   </header>
 </template>
@@ -27,3 +28,9 @@ import { RouterLink } from 'vue-router'
 
 const cartStore = useCartStore()
 </script>
+
+<style scoped>
+.router-link-active {
+  text-decoration: underline;
+}
+</style>
