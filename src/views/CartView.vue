@@ -8,7 +8,9 @@
       Back to product page
     </RouterLink>
     <div class="flex justify-center mt-48" v-if="totalQuantity !== 0">
-      <BigButton @click="addNewOrder">Order</BigButton>
+      <RouterLink to="/orders" class="text-black text-3xl">
+        <BigButton @click="addNewOrder">Order</BigButton>
+      </RouterLink>
     </div>
   </main>
 </template>
