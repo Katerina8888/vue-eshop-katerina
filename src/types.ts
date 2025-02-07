@@ -6,6 +6,7 @@ export interface Product {
 }
 
 export interface Order {
+  id: number
   products: Product[]
   totalQuantity: number
   totalPrice: number

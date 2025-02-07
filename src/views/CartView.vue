@@ -29,6 +29,7 @@ const totalQuantity = computed(() => cartStore.totalQuantity)
 
 const addNewOrder = (): void => {
   const order = {
+    id: cartStore.orders.length + 1,
     products: cartItems.value,
     totalQuantity: totalQuantity.value,
     totalPrice: cartStore.totalPrice,

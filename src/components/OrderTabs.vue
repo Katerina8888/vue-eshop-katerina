@@ -1,7 +1,9 @@
 <template>
   <ul class="flex justify-center space-x-4">
-    <li v-for="(item, index) in orders" :key="index" class="btn-wrapper">
-      <BigButton>order number {{ index + 1 }}</BigButton>
+    <li v-for="order in orders" :key="order.id" class="btn-wrapper">
+      <RouterLink :to="`/orders/${order.id}`">
+        <BigButton>order {{ order.id }}</BigButton>
+      </RouterLink>
     </li>
   </ul>
 </template>
