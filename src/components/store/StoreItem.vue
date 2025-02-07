@@ -7,9 +7,9 @@
       >
         <h3 class="mb-9 md:text-xl font-bold">{{ product.name }}</h3>
       </div>
-      <ButtonText v-if="!isVisible(product.id)" @click="toggleVisibility(product.id)" />
+      <ButtonText v-if="!showIntegerWrapper" @click="addToCart" />
       >
-      <ButtonIntegerWrapper v-if="isVisible(product.id)" :product="product" />
+      <ButtonIntegerWrapper v-if="showIntegerWrapper" :product="product" />
     </div>
   </li>
 </template>
@@ -18,19 +18,19 @@
 import ButtonIntegerWrapper from './ButtonIntegerWrapper.vue'
 import type { Product } from '@/types'
 import ButtonText from '../ButtonText.vue'
-import { useVisibilityStore } from '@/stores/visibility'
+import { useCartStore } from '@/stores/cart'
+import { ref } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   product: Product
 }>()
 
-const visibilityStore = useVisibilityStore()
+const cartStore = useCartStore()
 
-const toggleVisibility = (productId: number) => {
-  visibilityStore.toggleVisibility(productId)
-}
+const showIntegerWrapper = ref(false)
 
-const isVisible = (productId: number) => {
-  return visibilityStore.isVisible(productId)
+const addToCart = () => {
+  cartStore.setQuantity(props.product.id, 1)
+  showIntegerWrapper.value = true
 }
 </script>
