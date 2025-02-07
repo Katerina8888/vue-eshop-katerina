@@ -1,12 +1,15 @@
 <template>
   <main>
     <div class="md:flex" v-if="totalQuantity !== 0">
-      <CartItemsWrapper :products="products"></CartItemsWrapper>
+      <CartItemsWrapper :products="cartItems"></CartItemsWrapper>
       <TotalPrice />
     </div>
-    <RouterLink class="text-black ml-6 text-3xl" v-if="totalQuantity === 0" to="/store"
-      >Back to product page</RouterLink
-    >
+    <RouterLink class="text-black ml-6 text-3xl" v-if="totalQuantity === 0" to="/store">
+      Back to product page
+    </RouterLink>
+    <div class="flex justify-center mt-48" v-if="totalQuantity !== 0">
+      <BigButton @click="addNewOrder">Order</BigButton>
+    </div>
   </main>
 </template>
 
@@ -15,9 +18,25 @@ import { computed } from 'vue'
 import { useCartStore } from '@/stores/cart'
 import CartItemsWrapper from '@/components/cart/CartItemsWrapper.vue'
 import TotalPrice from '@/components/cart/TotalPrice.vue'
+import BigButton from '@/components/BigButton.vue'
 
 const cartStore = useCartStore()
 
-const products = computed(() => cartStore.products)
+const cartItems = computed(() => cartStore.cartItems)
 const totalQuantity = computed(() => cartStore.totalQuantity)
+
+const addNewOrder = (): void => {
+  const order = {
+    products: cartItems.value,
+    totalQuantity: totalQuantity.value,
+    totalPrice: cartStore.totalPrice,
+  }
+
+  cartStore.$patch((state) => {
+    state.orders.push(order)
+  })
+
+  cartStore.products = []
+  cartStore.quantities = {}
+}
 </script>

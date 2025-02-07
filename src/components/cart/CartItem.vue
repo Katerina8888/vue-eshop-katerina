@@ -14,7 +14,6 @@ import { useCartStore } from '@/stores/cart'
 import ButtonSymbolsValue from '../store/ButtonSymbolsValue.vue'
 import type { Product } from '@/types'
 
-// TODO ZAPAMATOVAT SI, KDY MÁ BÝT CONST PROPS A KDY NE
 const props = defineProps<{
   product: Product
 }>()
