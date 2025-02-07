@@ -87,9 +87,9 @@ export const useCartStore = defineStore(
       fetchProducts,
     }
   },
-  {
-    persist: {
-      storage: localStorage,
-    },
-  },
+  // {
+  //   persist: {
+  //     paths: ['orders'],
+  //   },
+  // },
 )

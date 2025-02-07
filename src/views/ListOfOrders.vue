@@ -1,11 +1,11 @@
 <template>
   <div v-if="order" class="text-black">
     <h2>Order Details for Order #{{ $route.params.id }}</h2>
-    <ul>
+    <ul class="md:w-2/3 lg:w-1/2">
       <li
         v-for="(product, index) in order.products"
         :key="index"
-        class="list-none py-3 grid grid-cols-5 md:gap-1 text-black"
+        class="list-none py-3 my-1 grid grid-cols-4 md:gap-1 text-black bg-purple-100"
       >
         <div>{{ product.name }}</div>
         <div>{{ getQuantity(product.id) }}</div>
