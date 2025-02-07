@@ -8,6 +8,7 @@ export const useCartStore = defineStore(
     const products = ref<Product[]>([])
     const quantities = ref<Record<number, number>>({})
     const orders = ref<Order[]>([])
+    const cartItems = ref<Product[]>([])
 
     const getQuantity = (productId: number) => {
       return quantities.value[productId] || 0
@@ -24,12 +25,17 @@ export const useCartStore = defineStore(
       }, 0)
     })
 
+    const updateCartItems = () => {
+      cartItems.value = products.value.filter((product) => getQuantity(product.id) > 0)
+    }
+
     const setQuantity = (productId: number, quantity: number) => {
       if (quantity > 0) {
         quantities.value[productId] = quantity
       } else {
         delete quantities.value[productId]
       }
+      updateCartItems()
     }
 
     const increaseQuantity = (productId: number) => {
@@ -37,27 +43,30 @@ export const useCartStore = defineStore(
         quantities.value[productId] = 0
       }
       quantities.value[productId]++
+      updateCartItems()
     }
 
     const decreaseQuantity = (productId: number) => {
       if (quantities.value[productId] > 0) {
         quantities.value[productId]--
       }
+      if (quantities.value[productId] === 0) {
+        delete quantities.value[productId]
+      }
+      updateCartItems()
     }
 
     const removeProduct = (productId: number) => {
       delete quantities.value[productId]
       products.value = products.value.filter((product) => product.id !== productId)
+      updateCartItems()
     }
-
-    const cartItems = computed(() => {
-      return products.value.filter((product) => getQuantity(product.id) > 0)
-    })
 
     const fetchProducts = async () => {
       try {
         const response = await fetch('/products.json')
         products.value = (await response.json()) as Product[]
+        updateCartItems()
       } catch (error) {
         console.error('Error fetching products:', error)
       }
@@ -66,6 +75,8 @@ export const useCartStore = defineStore(
     return {
       products,
       quantities,
+      orders,
+      cartItems,
       getQuantity,
       totalQuantity,
       totalPrice,
@@ -74,13 +85,11 @@ export const useCartStore = defineStore(
       decreaseQuantity,
       removeProduct,
       fetchProducts,
-      orders,
-      cartItems,
     }
   },
-  // {
-  //   persist: {
-  //     storage: localStorage,
-  //   },
-  // },
+  {
+    persist: {
+      storage: localStorage,
+    },
+  },
 )

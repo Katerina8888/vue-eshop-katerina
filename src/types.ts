@@ -4,3 +4,9 @@ export interface Product {
   price: number
   picture: string
 }
+
+export interface Order {
+  products: Product[]
+  totalQuantity: number
+  totalPrice: number
+}
