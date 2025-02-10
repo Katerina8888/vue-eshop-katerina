@@ -17,28 +17,18 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useCartStore } from '@/stores/cart'
 import CartItemsWrapper from '@/components/cart/CartItemsWrapper.vue'
 import TotalPrice from '@/components/cart/TotalPrice.vue'
 import BigButton from '@/components/BigButton.vue'
+import { useProductStore } from '@/stores/products'
+import { useOrderStore } from '@/stores/orders'
 
-const cartStore = useCartStore()
+const productStore = useProductStore()
+const orderStore = useOrderStore()
 
-const cartItems = computed(() => cartStore.cartItems)
-const totalQuantity = computed(() => cartStore.totalQuantity)
-
-// stačí toto a dle quantity si pak najít id produktu a dotahat další věci
-const addNewOrder = (): void => {
-  const order = {
-    id: cartStore.orders.length + 1,
-    products: cartItems.value,
-  }
-
-  cartStore.$patch((state) => {
-    state.orders.push(order)
-  })
-
-  cartStore.products = []
-  cartStore.quantities = {}
+const cartItems = computed(() => productStore.cartItems)
+const totalQuantity = computed(() => productStore.totalQuantity)
+const addNewOrder = () => {
+  orderStore.addNewOrder()
 }
 </script>

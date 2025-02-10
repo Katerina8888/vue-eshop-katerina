@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { defineProps, computed } from 'vue'
-import { useCartStore } from '@/stores/cart'
+import { useProductStore } from '@/stores/products'
 import ButtonSymbolsValue from '../store/ButtonSymbolsValue.vue'
 import type { Product } from '@/types'
 
@@ -18,12 +18,12 @@ const props = defineProps<{
   product: Product
 }>()
 
-const cartStore = useCartStore()
+const productStore = useProductStore()
 
-const quantity = computed(() => cartStore.getQuantity(props.product.id))
+const quantity = computed(() => productStore.getQuantity(props.product.id))
 const price = computed(() => props.product.price * quantity.value)
 
 const removeItem = () => {
-  cartStore.removeProduct(props.product.id)
+  productStore.removeProduct(props.product.id)
 }
 </script>

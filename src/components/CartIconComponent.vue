@@ -19,11 +19,11 @@
 
 <script setup lang="ts">
 import shoppingCart from '@/assets/shopping-cart.svg'
-import { useCartStore } from '@/stores/cart'
+import { useProductStore } from '@/stores/products'
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 
-const cartStore = useCartStore()
+const cartStore = useProductStore()
 
 const totalQuantity = computed(() => cartStore.totalQuantity)
 

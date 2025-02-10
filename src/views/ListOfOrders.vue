@@ -22,10 +22,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useCartStore } from '@/stores/cart'
+import { useOrderStore } from '@/stores/orders'
 
 const route = useRoute()
-const cartStore = useCartStore()
+const cartStore = useOrderStore()
 
 const orderId = computed(() => parseInt(route.params.id as string, 10))
 const order = computed(() => cartStore.orders.find((order) => order.id === orderId.value))

@@ -6,16 +6,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
-import { useCartStore } from '@/stores/cart'
+import { computed } from 'vue'
+import { useProductStore } from '@/stores/products'
 import StoreItemsWrapper from '@/components/store/StoreItemsWrapper.vue'
 import CartIconComponent from '@/components/CartIconComponent.vue'
 
-const cartStore = useCartStore()
+const productStore = useProductStore()
 
-onMounted(() => {
-  cartStore.fetchProducts()
-})
-
-const products = computed(() => cartStore.products)
+const products = computed(() => productStore.products)
 </script>

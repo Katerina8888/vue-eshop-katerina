@@ -18,19 +18,19 @@
 import ButtonIntegerWrapper from './ButtonIntegerWrapper.vue'
 import type { Product } from '@/types'
 import ButtonText from '../ButtonText.vue'
-import { useCartStore } from '@/stores/cart'
 import { computed } from 'vue'
+import { useProductStore } from '@/stores/products'
 
 const props = defineProps<{
   product: Product
 }>()
 
-const cartStore = useCartStore()
+const productStore = useProductStore()
 
 // Show the integer wrapper if item is in cart
-const showIntegerWrapper = computed(() => cartStore.getQuantity(props.product.id) > 0)
+const showIntegerWrapper = computed(() => productStore.getQuantity(props.product.id) > 0)
 
 const addToCart = () => {
-  cartStore.setQuantity(props.product.id, 1)
+  productStore.setQuantity(props.product.id, 1)
 }
 </script>

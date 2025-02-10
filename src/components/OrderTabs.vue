@@ -10,10 +10,10 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useCartStore } from '@/stores/cart'
+import { useOrderStore } from '@/stores/orders'
 import BigButton from './BigButton.vue'
 
-const cartStore = useCartStore()
+const cartStore = useOrderStore()
 
 const orders = computed(() => cartStore.orders)
 </script>

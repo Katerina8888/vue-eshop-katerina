@@ -23,10 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import { useCartStore } from '@/stores/cart'
+import { useProductStore } from '@/stores/products'
 import { RouterLink } from 'vue-router'
 
-const cartStore = useCartStore()
+const cartStore = useProductStore()
 </script>
 
 <style scoped>
