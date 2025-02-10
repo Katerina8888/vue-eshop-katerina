@@ -13,8 +13,8 @@
         <div class="font-bold">{{ product.price * getQuantity(product.id) }} €</div>
       </li>
     </ul>
-    <div class="font-bold">Total Quantity: {{ order.totalQuantity }}</div>
-    <div class="font-bold">Total Price: {{ order.totalPrice }} €</div>
+    <div class="font-bold">Total Quantity: {{ totalQuantity }}</div>
+    <div class="font-bold">Total Price: {{ totalPrice }} €</div>
   </div>
   <div v-else class="text-black">Order not found</div>
 </template>
@@ -27,11 +27,21 @@ import { useCartStore } from '@/stores/cart'
 const route = useRoute()
 const cartStore = useCartStore()
 
-const orderId = computed(() => parseInt(route.params.id as string))
+const orderId = computed(() => parseInt(route.params.id as string, 10))
 const order = computed(() => cartStore.orders.find((order) => order.id === orderId.value))
 
 const getQuantity = (productId: number) => {
   const product = order.value?.products.find((product) => product.id === productId)
-  return product ? cartStore.getQuantity(product.id) : 0
+  return product ? product.quantity : 0
 }
+
+const totalQuantity = computed(() => {
+  return order.value?.products.reduce((sum, product) => sum + product.quantity, 0) || 0
+})
+
+const totalPrice = computed(() => {
+  return (
+    order.value?.products.reduce((sum, product) => sum + product.price * product.quantity, 0) || 0
+  )
+})
 </script>
