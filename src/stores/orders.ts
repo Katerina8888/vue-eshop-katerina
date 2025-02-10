@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import type { Order } from '@/types'
+import type { Order, IProductViewWithQuantity } from '@/types'
 import { useProductStore } from './products'
 
 export const useOrderStore = defineStore(
@@ -12,7 +12,7 @@ export const useOrderStore = defineStore(
     const addNewOrder = (): void => {
       const order = {
         id: orders.value.length + 1,
-        products: productStore.cartItems,
+        products: productStore.cartItems as IProductViewWithQuantity[],
       }
 
       orders.value.push(order)

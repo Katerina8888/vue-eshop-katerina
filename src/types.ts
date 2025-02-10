@@ -3,13 +3,13 @@ export interface Product {
   name: string
   price: number
   picture: string
-  //toto nevím, jestli je správný přístup mít definované zde,
-  // protože mi nepřichází z dat z .json, ale vytvářím se mi
-  // až následně v košíku
-  quantity?: number | undefined
+}
+
+export interface IProductViewWithQuantity extends Product {
+  quantity: number
 }
 
 export interface Order {
   id: number
-  products: Product[]
+  products: IProductViewWithQuantity[]
 }
