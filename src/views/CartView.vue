@@ -27,12 +27,11 @@ const cartStore = useCartStore()
 const cartItems = computed(() => cartStore.cartItems)
 const totalQuantity = computed(() => cartStore.totalQuantity)
 
+// stačí toto a dle quantity si pak najít id produktu a dotahat další věci
 const addNewOrder = (): void => {
   const order = {
     id: cartStore.orders.length + 1,
     products: cartItems.value,
-    totalQuantity: totalQuantity.value,
-    totalPrice: cartStore.totalPrice,
   }
 
   cartStore.$patch((state) => {
