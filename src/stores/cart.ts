@@ -8,7 +8,17 @@ export const useCartStore = defineStore(
     const products = ref<Product[]>([])
     const quantities = ref<Record<number, number>>({})
     const orders = ref<Order[]>([])
-    const cartItems = ref<Product[]>([])
+
+    // Object.entries(quantities.value)
+    // {3: 2} // {productId: quantity}
+    // [productId, quantity]
+
+    const cartItems = computed((): (Product & { quantity: number })[] => {
+      return Object.entries(quantities.value).map(([productId, quantity]) => {
+        const product = products.value.find((product) => product.id === Number(productId))!
+        return { ...product, quantity }
+      })
+    })
 
     const getQuantity = (productId: number) => {
       return quantities.value[productId] || 0
@@ -25,17 +35,12 @@ export const useCartStore = defineStore(
       }, 0)
     })
 
-    const updateCartItems = () => {
-      cartItems.value = products.value.filter((product) => getQuantity(product.id) > 0)
-    }
-
     const setQuantity = (productId: number, quantity: number) => {
       if (quantity > 0) {
         quantities.value[productId] = quantity
       } else {
         delete quantities.value[productId]
       }
-      updateCartItems()
     }
 
     const increaseQuantity = (productId: number) => {
@@ -43,7 +48,6 @@ export const useCartStore = defineStore(
         quantities.value[productId] = 0
       }
       quantities.value[productId]++
-      updateCartItems()
     }
 
     const decreaseQuantity = (productId: number) => {
@@ -53,20 +57,17 @@ export const useCartStore = defineStore(
       if (quantities.value[productId] === 0) {
         delete quantities.value[productId]
       }
-      updateCartItems()
     }
 
     const removeProduct = (productId: number) => {
       delete quantities.value[productId]
       products.value = products.value.filter((product) => product.id !== productId)
-      updateCartItems()
     }
 
     const fetchProducts = async () => {
       try {
         const response = await fetch('/products.json')
         products.value = (await response.json()) as Product[]
-        updateCartItems()
       } catch (error) {
         console.error('Error fetching products:', error)
       }
@@ -87,9 +88,7 @@ export const useCartStore = defineStore(
       fetchProducts,
     }
   },
-  // {
-  //   persist: {
-  //     paths: ['orders'],
-  //   },
-  // },
+  {
+    persist: true,
+  },
 )
