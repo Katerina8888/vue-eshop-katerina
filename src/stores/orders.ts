@@ -17,7 +17,6 @@ export const useOrderStore = defineStore(
 
       orders.value.push(order)
 
-      productStore.products = []
       productStore.quantities = {}
     }
 
