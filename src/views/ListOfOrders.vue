@@ -10,7 +10,7 @@
         <div>{{ product.name }}</div>
         <div>{{ getQuantity(product.id) }}</div>
         <div>{{ getQuantity(product.id) }} * {{ product.price }} €</div>
-        <div class="font-bold">{{ product.price * getQuantity(product.id) }} €</div>
+        <div class="font-bold">{{ product.price * getQuantity(product.id)! }} €</div>
       </li>
     </ul>
     <div class="font-bold">Total Quantity: {{ totalQuantity }}</div>
@@ -36,12 +36,12 @@ const getQuantity = (productId: number) => {
 }
 
 const totalQuantity = computed(() => {
-  return order.value?.products.reduce((sum, product) => sum + product.quantity, 0) || 0
+  return order.value!.products.reduce((sum, product) => sum + product.quantity!, 0) || 0
 })
 
 const totalPrice = computed(() => {
   return (
-    order.value?.products.reduce((sum, product) => sum + product.price * product.quantity, 0) || 0
+    order.value!.products.reduce((sum, product) => sum + product.price * product.quantity!, 0) || 0
   )
 })
 </script>
