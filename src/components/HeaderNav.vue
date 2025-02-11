@@ -1,6 +1,8 @@
 <template>
   <header class="flex bg-purple-500 justify-between p-4 text-2xl mb-12">
-    <RouterLink to="/store" class="font-bold">E-SHOP</RouterLink>
+    <h1>
+      <RouterLink to="/store" class="font-bold uppercase">E-Shop</RouterLink>
+    </h1>
     <nav>
       <RouterLink
         to="/store"
