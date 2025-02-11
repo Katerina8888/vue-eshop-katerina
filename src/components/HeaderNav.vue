@@ -12,7 +12,6 @@
         Store
       </RouterLink>
       <RouterLink
-        v-if="cartStore.totalQuantity !== 0"
         to="/cart"
         :class="{ underline: $route.path === '/cart' }"
         class="px-2 md:px-4 py-2"

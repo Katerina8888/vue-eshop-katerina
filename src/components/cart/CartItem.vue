@@ -1,5 +1,5 @@
 <template>
-  <li class="list-none py-3 grid grid-cols-5 md:gap-1 text-black">
+  <li class="cart-item list-none py-3 grid grid-cols-5 md:gap-1 text-black">
     <ButtonSymbolsValue @click="removeItem">x</ButtonSymbolsValue>
     <div>{{ product.name }}</div>
     <div>{{ quantity }}</div>

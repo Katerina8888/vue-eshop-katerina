@@ -1,6 +1,6 @@
 <template>
   <li class="p-4 grid place-items-center">
-    <div class="relative">
+    <div class="shop-item relative">
       <img class="rounded-tr-3xl max-w-full h-auto" :src="product.picture" alt="" />
       <div
         class="bg-black/70 flex flex-col items-center backdrop-blur-none p-1 md:p-4 absolute bottom-0 left-0 w-full"
