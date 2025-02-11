@@ -1,0 +1,3 @@
+[submodule "cypress/e2e/predefined-eshop-tests-cucumber"]
+	path = cypress/e2e/predefined-eshop-tests-cucumber
+	url = https://github.com/stepanroznik/predefined-eshop-tests-cucumber.git
