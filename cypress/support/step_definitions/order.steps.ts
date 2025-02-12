@@ -16,6 +16,7 @@ Then(/the order page should not be empty/, () => {
   cy.get('.order-tabs-wrapper').should('not.be.empty')
 })
 
-Then(/the user should see "(.+)"/, (text: string) => {
+// v případě dvojího podobnýho zadání
+Then(/^the user should see "(.+)"$/, (text: string) => {
   cy.contains(text).should('exist')
 })
