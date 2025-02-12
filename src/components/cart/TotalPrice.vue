@@ -1,7 +1,11 @@
 <template>
-  <div v-if="totalPrice !== 0" class="flex flex-col text-center border p-8 m-auto text-black">
-    <div>Total</div>
-    <div>{{ totalPrice }} €</div>
+  <div
+    v-if="totalPrice !== 0"
+    class="total-price flex flex-col text-center border p-8 m-auto text-black"
+  >
+    <div>total&nbsp;</div>
+    <div class="price">{{ totalPrice }}&nbsp;</div>
+    <div>€</div>
   </div>
 </template>
 
