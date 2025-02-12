@@ -5,6 +5,7 @@ import type { Product } from '@/types'
 export const useProductStore = defineStore('products', () => {
   const products = ref<Product[]>([])
   const quantities = ref<Record<number, number>>({})
+  const cartOrder = ref<number[]>([])
 
   const fetchProducts = async () => {
     try {
@@ -16,10 +17,13 @@ export const useProductStore = defineStore('products', () => {
   }
 
   const cartItems = computed((): (Product & { quantity: number })[] => {
-    return Object.entries(quantities.value).map(([productId, quantity]) => {
-      const product = products.value.find((product) => product.id === Number(productId))!
-      return { ...product, quantity }
-    })
+    return cartOrder.value
+      .map((productId) => {
+        const product = products.value.find((product) => product.id === productId)!
+        const quantity = quantities.value[productId] || 0
+        return { ...product, quantity }
+      })
+      .filter((product) => product.quantity > 0)
   })
 
   const getQuantity = (productId: number) => {
@@ -40,14 +44,19 @@ export const useProductStore = defineStore('products', () => {
   const setQuantity = (productId: number, quantity: number) => {
     if (quantity > 0) {
       quantities.value[productId] = quantity
+      if (!cartOrder.value.includes(productId)) {
+        cartOrder.value.push(productId)
+      }
     } else {
       delete quantities.value[productId]
+      cartOrder.value = cartOrder.value.filter((id) => id !== productId)
     }
   }
 
   const increaseQuantity = (productId: number) => {
     if (!quantities.value[productId]) {
       quantities.value[productId] = 0
+      cartOrder.value.push(productId)
     }
     quantities.value[productId]++
   }
@@ -58,17 +67,19 @@ export const useProductStore = defineStore('products', () => {
     }
     if (quantities.value[productId] === 0) {
       delete quantities.value[productId]
+      cartOrder.value = cartOrder.value.filter((id) => id !== productId)
     }
   }
 
   const removeProduct = (productId: number) => {
     delete quantities.value[productId]
-    products.value = products.value.filter((product) => product.id !== productId)
+    cartOrder.value = cartOrder.value.filter((id) => id !== productId)
   }
 
   return {
     products,
     quantities,
+    cartOrder,
     cartItems,
     getQuantity,
     totalQuantity,
