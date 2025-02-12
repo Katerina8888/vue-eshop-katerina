@@ -7,8 +7,7 @@
       <div class="relative">
         <img :src="shoppingCart" alt="Shopping Cart" />
         <span
-          v-if="totalQuantity !== 0"
-          class="absolute -top-1 font-bold text-center right-3 text-md text-purple-500 bg-white rounded-full w-6 h-6"
+          class="cart-icon absolute -top-1 font-bold text-center right-3 text-md text-purple-500 bg-white rounded-full w-6 h-6"
         >
           {{ totalQuantity }}
         </span>
