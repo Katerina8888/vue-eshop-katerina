@@ -1,8 +1,11 @@
 <template>
   <main>
-    <div class="md:flex" v-if="totalQuantity !== 0">
-      <CartItemsWrapper :products="cartItems"></CartItemsWrapper>
-      <TotalPrice />
+    <div>
+      <h2 class="cart-heading">Cart items</h2>
+      <div class="md:flex" v-if="totalQuantity !== 0">
+        <CartItemsWrapper :products="cartItems"></CartItemsWrapper>
+        <TotalPrice />
+      </div>
     </div>
     <RouterLink class="text-black ml-6 text-3xl" v-if="totalQuantity === 0" to="/store">
       Back to product page

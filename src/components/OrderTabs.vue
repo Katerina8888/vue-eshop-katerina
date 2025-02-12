@@ -1,5 +1,5 @@
 <template>
-  <ul class="flex justify-center space-x-4">
+  <ul class="order-tabs-wrapper flex justify-center space-x-4">
     <li v-for="order in orders" :key="order.id" class="btn-wrapper">
       <RouterLink :to="`/orders/${order.id}`">
         <BigButton>order {{ order.id }}</BigButton>
